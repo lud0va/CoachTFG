@@ -1,0 +1,72 @@
+<p>coacheedetail works!</p>
+<h1>Detalle de {{coachee?.username}}</h1>
+<div class="container">
+
+    <!-- Aquí se listarían los entrenamientos del coachee -->
+<div class="row ">
+  <div class="col">
+    <h1>entrenamientos</h1>
+    <button (click)="toAddEntrenamiento()" >Añadir entrenamiento</button>
+    <ul class="coacheeItem list-group">
+      <li class="list-group-item h4" *ngFor="let entrenamiento of entrenamientos"
+
+          (click)="onSelectEntrenamiento(entrenamiento)"
+      >
+        <p>dia: {{entrenamiento.diaSemana}}</p>
+
+        <ul *ngIf="selectedEntrenamientoId===entrenamiento.id">
+          <li *ngFor="let ejercicio of entrenamiento.ejercicios">
+
+            {{ejercicio.nombre}}:
+            {{ejercicio.descripcion}}
+            <p>dificultad: {{ejercicio.dificultad}} </p>
+
+
+          </li>
+
+        </ul>
+      </li>
+    </ul>
+  </div>
+  <div class="col">
+    <h1>dietas</h1>
+    <button (click)="toAddDieta()" >Añadir dieta</button>
+    <ul class="coacheeItem list-group">
+      <li class="list-group-item h4" *ngFor="let dieta of dietas"
+
+          (click)="onSelectDieta(dieta)"
+      >
+        <p>caloriasMax: {{dieta.caloriasmaxdia}}</p>
+        <ul *ngIf="selectedDietaId===dieta.id">
+          <li *ngFor="let plato of dieta.platoDeDieta"
+
+              (click)="onSelectPlato(plato)" >
+            <p>nombre plato: {{plato.nombre}}</p>
+            <p>descripción plato: {{plato.nombre}}</p>
+            <ul *ngIf="selectedPlatoId===plato.id">
+              <li *ngFor="let alimento of plato.alimentosPlato" >
+                <p>nombre alimentos: {{alimento.nombre}}</p>
+
+                <p>proteinas:  {{alimento.proteinas}}</p>
+
+                <p>calorias: {{alimento.calorias}}</p>
+
+
+
+              </li>
+
+            </ul>
+
+          </li>
+
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>
+
+
+
+</div>
+
+

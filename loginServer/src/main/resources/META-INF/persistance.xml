@@ -1,0 +1,4 @@
+<persistence-unit name="tuUnidadPersistencia">
+    <class>org.example.domain.model.Users</class>
+    <!-- Otras configuraciones -->
+</persistence-unit>

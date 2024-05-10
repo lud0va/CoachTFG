@@ -1,0 +1,67 @@
+<p>addentrenamiento works!</p>
+<div class="row ">
+  <div class="col">
+    <h1 >Selecciona un entrenamiento y añade ejercicios</h1>
+    <form [formGroup]="form"  >
+      <label for="Nombre">Nombre</label>
+      <input formControlName="nombre" class="form-control elmEntrenamiento" [disabled]="activated"  id="Nombre" name="Nombre" placeholder="Ingresa el nombre" required>
+      <label for="Descripción">Descripción</label>
+      <input  formControlName="descripcion"  class="form-control elmEntrenamiento"  [disabled]="activated" id="Descripción" name="Descripción" placeholder="Ingresa la descripción" required>
+      <label for="Tipo">Tipo</label>
+      <input   formControlName="tipo" class="form-control elmEntrenamiento"  [disabled]="activated" id="Tipo" name="Tipo" placeholder="Ingresa el tipo" required>
+
+      <label for="Dificultad">Dificultad</label>
+      <input   formControlName="dificultad" class="form-control elmEntrenamiento"  [disabled]="activated" id="Dificultad" name="Dificultad" placeholder="Ingresa la dificultad" required>
+
+
+    </form>
+
+    <button  (click)="addEjercicio()"  type="submit" class="btn btn-primary btn-block ms-5 mt-5">Añadir ejercico</button>
+
+    <div class="mt-5" >
+
+
+      <select  class="form-control">
+        <option *ngFor="let day of daysOfWeek"
+                (click)="selectDay(day)"
+                [value]="day">{{ day }}
+
+        </option>
+      </select>
+
+      <button   type="submit"  (click)="addEntrenamiento()" class="btn btn-primary btn-block ms-5 mt-5">Añadir entrenamiento</button>
+
+
+    </div>
+
+
+
+
+
+  </div>
+  <div class="col">
+    <ul class="coacheeItem list-group">
+      <li class="list-group-item h4" *ngFor="let entrenamiento of entrenamientos"
+
+          (click)="onSelectEntrenamiento(entrenamiento)"
+      >
+        <p>dia: {{ entrenamiento.diaSemana }}</p>
+
+        <ul *ngIf="selectedEntrenamientoId===entrenamiento.id">
+          <li *ngFor="let ejercicio of entrenamiento.ejercicios">
+
+            {{ ejercicio.nombre }}:
+            {{ ejercicio.descripcion }}
+            <p>dificultad: {{ ejercicio.dificultad }} </p>
+
+
+          </li>
+
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+
+</div>
+
