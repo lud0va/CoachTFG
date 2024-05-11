@@ -4,6 +4,8 @@ import org.example.restserver.domain.model.Alimentos;
 import org.example.restserver.domain.services.AlimentosServicios;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/alimento")
 @CrossOrigin("http://localhost:4200/")
@@ -16,11 +18,11 @@ public class AlimentosRest {
 
     @PostMapping
     public Alimentos addAlimentosDieta(@RequestParam(name = "iddieta") int iddieta,@RequestParam(name = "cant")String cantidad,@RequestBody Alimentos alimentos){
-      return servicios.addAlimentoDieta(iddieta,cantidad,alimentos);
+      return servicios.addAlimento(alimentos);
     }
-    @PostMapping
-    public Alimentos addAlimentosPlato(@RequestParam(name = "idplato") int idplato,@RequestBody Alimentos alimentos){
-        return servicios.addAlimentosPlato(idplato, alimentos);
-    }
+   @GetMapping
+    public List<Alimentos> getAll(){
+        return servicios.getAllAlimentos();
+   }
 
 }

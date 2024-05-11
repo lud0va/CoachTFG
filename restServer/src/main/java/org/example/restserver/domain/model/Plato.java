@@ -21,19 +21,28 @@ public class Plato {
     @Column(name = "idplato", nullable = false)
     private int id;
 
-    @Column(name = "desc")
+    @Column(name = "descripcion")
     private String desc;
-
+    @Column(name = "hora")
+    private String hora;
     @Column(name = "nombre")
     private String nombre;
 
-    @Column(name = "hora")
-    private String hora;
+
     @JsonIgnore
     @ManyToOne(cascade = {CascadeType.REMOVE})
-    @JoinColumn(name = "iddietas" ,insertable=false, updatable=false)
-    private Dieta dietasConPlato;
+    @JoinColumn(name = "iddietas",insertable=false, updatable=false )
+    private Dieta dietas;
+    @Column(name = "iddietas")
+    private int iddietas;
 
-    @OneToMany(mappedBy = "alimento", cascade = {CascadeType.REMOVE})
-    private List<PlatoAlimentosElem> plato;
+
+
+
+    @OneToMany(mappedBy = "alimentosPlato", cascade = {CascadeType.REMOVE})
+    private List<PlatoAlimentosElem> alimentosPlato;
+
+    public Plato(int id) {
+        this.id = id;
+    }
 }

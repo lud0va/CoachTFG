@@ -6,6 +6,8 @@ import org.example.restserver.dao.PlatoAlimentoDao;
 import org.example.restserver.domain.model.*;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class AlimentosServicios {
   private final   AlimentosDao dao;
@@ -18,14 +20,12 @@ public class AlimentosServicios {
         this.platoAlimentoDao = platoAlimentoDao;
     }
 
-    public Alimentos addAlimentoDieta(int iddieta,String cant,Alimentos alimentos){
+    public Alimentos addAlimento(Alimentos alimentos){
        Alimentos alimento= dao.save(alimentos);
-        alimentosPermitidosDao.save(new AlimentosPermitidos(new AlimentosPermitidosId(),iddieta,alimento.getId(),cant));
         return alimento;
     }
-    public Alimentos addAlimentosPlato(int idplato,Alimentos alimentos){
-        Alimentos alimento= dao.save(alimentos);
-        platoAlimentoDao.save(new PlatoAlimentosElem(new PlatoAlimentosId(),idplato,alimento.getId()));
-            return alimento;
+    public List<Alimentos> getAllAlimentos(){
+        return dao.findAll();
     }
+
 }

@@ -45,11 +45,11 @@
             <p>descripción plato: {{plato.nombre}}</p>
             <ul *ngIf="selectedPlatoId===plato.id">
               <li *ngFor="let alimento of plato.alimentosPlato" >
-                <p>nombre alimentos: {{alimento.nombre}}</p>
+                <p>nombre alimentos: {{alimento.alimento?.nombre}}</p>
 
-                <p>proteinas:  {{alimento.proteinas}}</p>
+                <p>proteinas:  {{alimento.alimento?.proteinas}}</p>
 
-                <p>calorias: {{alimento.calorias}}</p>
+                <p>calorias: {{alimento.alimento?.carbohidratos}}</p>
 
 
 

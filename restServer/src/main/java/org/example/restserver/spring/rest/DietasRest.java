@@ -20,7 +20,7 @@ public class DietasRest {
         return serv.getDietasDeCoachee(id);
     }
     @PostMapping
-    public Dieta addDieta(@RequestParam("dieta") Dieta dieta){
+    public Dieta addDieta(@RequestBody Dieta dieta){
         return serv.addDieta(dieta);
     }
 

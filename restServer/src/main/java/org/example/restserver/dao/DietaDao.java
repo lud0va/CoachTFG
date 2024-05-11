@@ -12,6 +12,7 @@ import java.util.Optional;
 @Repository
 public interface DietaDao  extends ListCrudRepository<Dieta, Long> {
 
-   @Query("SELECT c FROM Dieta c WHERE  c.coachee.idcoachee=:id ")
+   @Query("SELECT c FROM Dieta c WHERE  c.idcoachee=:id ")
     List<Dieta> findAllByIdCoachee(int id);
+    List<Dieta>findAllByIdcoachee(int id);
 }

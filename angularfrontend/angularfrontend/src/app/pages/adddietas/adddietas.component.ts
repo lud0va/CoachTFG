@@ -9,6 +9,8 @@ import {Coachee} from "../../model/coacheelistmodel/coachee";
 import {PlatosService} from "../../services/platos/platos.service";
 import {AlimentosService} from "../../services/alimentos/alimentos.service";
 import {FormBuilder, Validators} from "@angular/forms";
+import {Alimento} from "../../model/alimento/alimento";
+import {PlatoAlimentosElem} from "../../model/platoalimentoselem/platosalimentoselem";
 
 @Component({
   selector: 'app-adddietas',
@@ -21,9 +23,14 @@ export class AdddietasComponent implements OnInit {
   dietas?: Dieta[];
   coachee?: Coachee;
   idcoachee= this.actroute.snapshot.params['id'];
-  activatedDieta=true
-  activatedPlato=true
   activatedAlimento=true
+  activatedPlato=true
+  activatedFinalDiet=true
+  alimentos?: Alimento[]
+  selectedAlimento: Alimento={id:1};
+  dietaSend:Dieta={}
+  selectPlatosid?:number
+
   form=this.formBuilder.group({
 
     caloriasMaxDia:['',[Validators.required]],
@@ -37,17 +44,6 @@ export class AdddietasComponent implements OnInit {
     desc:['',Validators.required],
     Hora:['',Validators.required],
     calTotal:['',Validators.required]
-  })
-  formAlimentos=this.formBuilder.group({
-
-    nom:['',[Validators.required]],
-    descript:['',Validators.required],
-    calorias:['',Validators.required],
-    grasas:['',Validators.required],
-    carbohidratos:['',Validators.required],
-    proteinas:['',Validators.required],
-    minerales:['',Validators.required],
-    vitaminas:['',Validators.required]
   })
   constructor(private formBuilder:FormBuilder,private router:Router,private actroute: ActivatedRoute, private dietaService: DietasService,  private coacheeServices: CoacheeService,private platoServices:PlatosService,private  aliimentosServices:AlimentosService) {
   }
@@ -63,15 +59,26 @@ export class AdddietasComponent implements OnInit {
 
     })
 
+   this.cargarDieta()
+    this.aliimentosServices.getAllAlimentos().subscribe({
+      next:value => {
+        this.alimentos=value
+      },error:err => {
+        console.log(err)
+      }
+    })
+
+  }
+
+  cargarDieta(){
     this.dietaService.getAllByCoacheeId(this.idcoachee).subscribe({
       next:value => {
         this.dietas=value
       },error:err => {
         console.log(err)
       }
-    })    }
-
-
+    })
+  }
 
   onSelectDieta(dieta:Dieta){
     this.selectedDietaId=dieta.id;
@@ -80,8 +87,67 @@ export class AdddietasComponent implements OnInit {
   onSelectPlato(plato:Plato){
     this.selectedPlatoId=plato.id;
   }
+  onSelectAlimento(alimento: Alimento): void {
+    this.selectedAlimento = alimento;
+  }
+  onSelectPlatoAdd(plato:Plato):void{
+    this.activatedAlimento=false
 
-  addDieta(){}
-  addPlato() {}
-  addAlimento(){}
+    this.selectPlatosid=plato.id;
+  }
+  addDieta(){
+    if (this.form.valid) {
+      const dietaData = this.form.value;
+      const fechaFinDieta = new Date(dietaData.finDieta?? new Date());
+      this.dietaSend = {
+        idcoachee:this.idcoachee,
+        caloriasmaxdia: dietaData.caloriasMaxDia ?? '', // Utilizamos el operador de coalescencia nula para proporcionar un valor predeterminado
+        fija: dietaData.fija ?? '', // Igualmente aquí
+        finDieta: fechaFinDieta,
+        platoDeDieta:[]
+      }
+    }
+    this.activatedPlato=false;
+    this.activatedFinalDiet=false;
+  }
+  addPlato() {
+    const platoData = this.formPlato.value;
+    const plato:Plato={
+      descripcion:platoData.desc??'',
+      nombre:platoData.nombre??'',
+      hora:platoData.Hora??'',
+      calTotal:Number(platoData.calTotal??''),
+      alimentosPlato:[]
+    }
+    this.dietaSend?.platoDeDieta?.push(plato)
+
+  }
+  addAlimento(){
+
+
+        const alimentosPlat:PlatoAlimentosElem={
+          alimento:this.selectedAlimento
+
+        }
+        this.dietaSend.platoDeDieta?.find(plato => plato.id === this.selectPlatosid)?.alimentosPlato?.push(alimentosPlat)
+
+
+
+
+
+
+  }
+
+  addDietaComplete(){
+
+    this.dietaService.addDieta(this.dietaSend).subscribe({
+      next:value => {
+        this.cargarDieta()
+      },error:err => {
+        console.log(err)
+      }
+    })
+
+
+  }
 }

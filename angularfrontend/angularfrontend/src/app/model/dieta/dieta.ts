@@ -7,6 +7,7 @@ export class Dieta{
   fija?:string;
   finDieta?:Date;
   platoDeDieta?:Plato[];
+  idcoachee?:number;
   alimentosPermitidos?:Alimento[];
 
 }

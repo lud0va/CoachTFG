@@ -39,11 +39,6 @@ public class Alimentos {
     private int vitaminas;
     @Column(name = Constantes.MINERALES)
     private int minerales;
-    @JsonIgnore
-    @ManyToMany(mappedBy = "alimentosPlato")
-    private List<Plato> alimentos;
-    @JsonIgnore
-    @ManyToMany(mappedBy = "alimentosPermitidos")
-    private List<Dieta> dietasPertenec;
+
 
 }

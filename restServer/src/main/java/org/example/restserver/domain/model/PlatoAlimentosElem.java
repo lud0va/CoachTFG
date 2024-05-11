@@ -19,13 +19,15 @@ public class PlatoAlimentosElem {
   @Column(name = "idplatoalimentos", nullable = false)
   private int id;
   @JsonIgnore
-  @ManyToOne(cascade = {CascadeType.REMOVE})
-  @JoinColumn(name = "idplato" ,insertable=false, updatable=false)
-  private Plato plato;
+  @ManyToOne(cascade = {CascadeType.REMOVE} )
+  @JoinColumn(name = "idplatos",insertable=false, updatable=false)
+  private Plato alimentosPlato;
+  @Column(name = "idplatos")
+  private int idplatos;
 
-  @JsonIgnore
   @OneToOne(cascade = {CascadeType.REMOVE})
-  @JoinColumn(name = "idalimentos" ,insertable=false, updatable=false)
+  @JoinColumn(name = "idalimentos" )
   private Alimentos alimento;
+
 
 }

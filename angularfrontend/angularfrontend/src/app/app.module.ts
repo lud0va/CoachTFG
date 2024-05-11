@@ -8,7 +8,7 @@ import { FooterComponent } from './shared/footer/footer.component';
 import { LoginComponent } from './pages/login/login.component';
 import { NavComponent } from './shared/nav/nav.component';
 import { MainComponent } from './pages/main/main.component';
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import {RegisterComponent} from "./pages/register/register.component";
 import { CoacheeslistComponent } from './pages/coacheeslist/coacheeslist.component';
@@ -34,7 +34,8 @@ import { AdddietasComponent } from './pages/adddietas/adddietas.component';
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [
     provideClientHydration()

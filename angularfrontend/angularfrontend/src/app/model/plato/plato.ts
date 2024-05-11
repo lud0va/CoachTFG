@@ -1,11 +1,11 @@
-import {Alimento} from "../alimento/alimento";
+import {PlatoAlimentosElem} from "../platoalimentoselem/platosalimentoselem";
 
 export class Plato{
   id?:number;
-  desc?:string;
+  descripcion?:string;
   nombre?:string;
   hora?:string;
   calTotal?:number;
-  alimentosPlato?:Alimento[];
+  alimentosPlato?:PlatoAlimentosElem[];
 
 }

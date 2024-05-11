@@ -6,9 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.example.restserver.common.Constantes;
-
-import java.io.Serializable;
 
 @Entity
 @Getter
@@ -23,17 +20,20 @@ public class AlimentosPermitidos {
     private int id;
 
     @JsonIgnore
-    @ManyToOne(cascade = {CascadeType.REMOVE})
-    @JoinColumn(name = "iddietasp" ,insertable=false, updatable=false)
-    private Dieta dietasConPlato;
-
-    @JsonIgnore
-    @OneToOne(cascade = {CascadeType.REMOVE})
-    @JoinColumn(name = "idalimentos" ,insertable=false, updatable=false)
-    private Alimentos alimento;
+    @ManyToOne( cascade = {CascadeType.REMOVE,CascadeType.PERSIST})
+    @JoinColumn(name = "iddietasp",insertable=false, updatable=false )
+    private Dieta alimentosperm;
+    @Column(name = "iddietasp" )
+    private int iddietasp;
 
 
-    @Column(name = "cantidad", nullable = false)
-    private String cantidad;
+    @OneToOne()
+    @JoinColumn(name = "idalimentos" )
+    private Alimentos alimentos;
+
+
+
+    @Column(name = "cantidad")
+    private int cantidad;
 }
 

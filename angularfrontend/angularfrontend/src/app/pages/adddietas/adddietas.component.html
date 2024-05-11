@@ -2,16 +2,16 @@
 
 <div class="row ">
   <div class="col">
-    <h1 >Selecciona un entrenamiento y añade ejercicios</h1>
+    <h1 >Crea una dieta y añadele comidas y alimentos</h1>
     <form [formGroup]="form"  >
       <label for="caloriasMaxDia">Calorias maximas por dia</label>
-      <input formControlName="caloriasMaxDia" class="form-control " [disabled]="activatedDieta"  id="caloriasMaxDia" name="caloriasMaxDia" placeholder="Ingresa las calorias maximas por dia" required>
+      <input formControlName="caloriasMaxDia" class="form-control "   id="caloriasMaxDia" name="caloriasMaxDia" placeholder="Ingresa las calorias maximas por dia" required>
       <label for="fija">Tipo de dieta</label>
-      <input  formControlName="fija"  class="form-control "  [disabled]="activatedDieta" id="fija" name="fija" placeholder="Ingresa el tipo de dieta" required>
+      <input  formControlName="fija"  class="form-control "   id="fija" name="fija" placeholder="Ingresa el tipo de dieta" required>
       <label for="finDieta">Fecha del fin de la dieta</label>
-      <input type="date" formControlName="finDieta"  class="form-control "  [disabled]="activatedDieta" id="finDieta" name="finDieta"  placeholder="yyyy-MM-dd" required>
+      <input type="date" formControlName="finDieta"  class="form-control "  id="finDieta" name="finDieta"  placeholder="yyyy-MM-dd" required>
 
-      <button  (click)="addDieta()"  type="submit" class="btn btn-primary btn-block ms-5 mt-5">Añadir ejercico</button>
+      <button  (click)="addDieta()"  type="submit" class="btn btn-primary btn-block ms-5 mt-5">Añadir dieta</button>
 
     </form>
 
@@ -28,36 +28,24 @@
         <label for="calTotal">Calorias totales</label>
         <input  formControlName="calTotal"  class="form-control "  [disabled]="activatedPlato" id="calTotal" name="Descripción" placeholder="Ingresa la descripción" required>
 
-        <button   type="submit"  (click)="addPlato()" class="btn btn-primary btn-block ms-5 mt-5">Añadir entrenamiento</button>
+        <button   type="submit"  (click)="addPlato()" [disabled]="activatedPlato" class="btn btn-primary btn-block ms-5 mt-5">Añadir plato</button>
 
       </form>
 
 
 
     </div>
-    <div class="mt-5" >
+    <div class="mt-3" >
 
-      <form [formGroup]="formPlato"  >
-        <label for="nom">Nombre alimento</label>
-        <input formControlName="nom" class="form-control " [disabled]="activatedAlimento"  id="nom" name="nom" placeholder="Ingresa el nombre" required>
-        <label for="Descript">Descripción alimento</label>
-        <input  formControlName="descript"  class="form-control elmEntrenamiento"  [disabled]="activatedAlimento" id="Descript" name="Desc" placeholder="Ingresa la descripción" required>
-        <label for="calorias">Nombre</label>
-        <input type="number" formControlName="calorias" class="form-control elmEntrenamiento" [disabled]="activatedAlimento"  id="calorias" name="calorias" placeholder="Ingresa las calorias" required>
-        <label for="grasas">Descripción</label>
-        <input  type="number" formControlName="grasas"  class="form-control elmEntrenamiento" [disabled]="activatedAlimento" id="grasas" name="grasas" placeholder="Ingresa las grasas" required>
-        <label for="carbohidratos">Nombre</label>
-        <input type="number" formControlName="carbohidratos" class="form-control elmEntrenamiento" [disabled]="activatedAlimento"  id="carbohidratos" name="carbohidratos" placeholder="Ingresa los carbohidratos" required>
-        <label for="proteinas">Descripción</label>
-        <input type="number" formControlName="proteinas"  class="form-control elmEntrenamiento"  [disabled]="activatedAlimento" id="proteinas" name="proteinas" placeholder="Ingresa las proteinas" required>
-        <label for="minerales">Nombre</label>
-        <input type="number" formControlName="minerales" class="form-control elmEntrenamiento" [disabled]="activatedAlimento" id="minerales" name="minerales" placeholder="Ingresa los minerales" required>
-        <label for="vitaminas">Descripción</label>
-        <input type="number" formControlName="vitaminas"  class="form-control elmEntrenamiento"  [disabled]="activatedAlimento" id="vitaminas" name="vitaminas" placeholder="Ingresa las vitaminas" required>
+      <select class="form-control">
+        <option *ngFor="let alimento of alimentos"  (click)="onSelectAlimento(alimento)" [value]="alimento.nombre">
+          {{ alimento.nombre }}
+        </option>
+      </select>
 
-        <button   type="submit"  (click)="addAlimento()" class="btn btn-primary btn-block ms-5 mt-5">Añadir entrenamiento</button>
+        <button   type="submit"   (click)="addAlimento()"  [disabled]="activatedAlimento"  class="btn btn-primary btn-block ms-5 mt-5">Añadir alimento</button>
 
-      </form>
+
 
 
 
@@ -68,38 +56,69 @@
 
   </div>
   <div class="col">
-    <h1>dietas</h1>
-    <ul class="coacheeItem list-group">
-      <li class="list-group-item h4" *ngFor="let dieta of dietas"
+    <div class="row">
+      <h1>dietas</h1>
+      <ul class="coacheeItem list-group">
+        <li class="list-group-item h4" *ngFor="let dieta of dietas"
 
-          (click)="onSelectDieta(dieta)"
-      >
-        <p>caloriasMax: {{dieta.caloriasmaxdia}}</p>
-        <ul *ngIf="selectedDietaId===dieta.id">
-          <li *ngFor="let plato of dieta.platoDeDieta"
+            (click)="onSelectDieta(dieta)"
+        >
+          <p>caloriasMax: {{dieta.caloriasmaxdia}}</p>
+          <ul *ngIf="selectedDietaId===dieta.id">
+            <li *ngFor="let plato of dieta.platoDeDieta"
 
-              (click)="onSelectPlato(plato)" >
-            <p>nombre plato: {{plato.nombre}}</p>
-            <p>descripción plato: {{plato.nombre}}</p>
-            <ul *ngIf="selectedPlatoId===plato.id">
-              <li *ngFor="let alimento of plato.alimentosPlato" >
-                <p>nombre alimentos: {{alimento.nombre}}</p>
+                (click)="onSelectPlato(plato)" >
+              <p>nombre plato: {{plato.nombre}}</p>
+              <p>descripción plato: {{plato.nombre}}</p>
+              <ul *ngIf="selectedPlatoId===plato.id">
+                <li *ngFor="let alimento of plato.alimentosPlato" >
+                  <p>nombre alimentos: {{alimento.alimento?.nombre}}</p>
 
-                <p>proteinas:  {{alimento.proteinas}}</p>
+                  <p>proteinas:  {{alimento.alimento?.proteinas}}</p>
 
-                <p>calorias: {{alimento.calorias}}</p>
+                  <p>calorias: {{alimento.alimento?.calorias}}</p>
 
 
 
-              </li>
+                </li>
 
-            </ul>
+              </ul>
 
-          </li>
+            </li>
 
-        </ul>
-      </li>
-    </ul>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div class="row">
+      <h1>dieta creada</h1>
+      <ul class="coacheeItem list-group   me-3 list-group-item  h6">
+        <p >caloriasMax: {{dietaSend.caloriasmaxdia}}</p>
+        <li *ngFor="let plato of dietaSend.platoDeDieta"
+
+            (click)="onSelectPlatoAdd(plato)" >
+          <p>nombre plato: {{plato.nombre}}</p>
+          <p>descripción plato: {{plato.nombre}}</p>
+          <ul *ngIf="selectedPlatoId===plato.id">
+            <li *ngFor="let alimento of plato.alimentosPlato" >
+              <p>nombre alimentos: {{alimento.alimento?.nombre}}</p>
+
+              <p>proteinas:  {{alimento.alimento?.proteinas}}</p>
+
+              <p>calorias: {{alimento.alimento?.calorias}}</p>
+
+
+
+            </li>
+
+          </ul>
+
+        </li>
+      </ul>
+      <button   type="submit"  (click)="addDietaComplete()"  [disabled]="activatedFinalDiet" class="btn btn-primary btn-block ms-5 mt-5">Añadir plato</button>
+
+    </div>
+
   </div>
 </div>
 

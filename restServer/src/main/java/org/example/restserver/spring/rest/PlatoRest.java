@@ -14,7 +14,7 @@ public class PlatoRest {
         this.servicios = servicios;
     }
     @PostMapping
-    public Plato addPlatoDieta(@RequestParam(name = "iddieta")int iddieta,@RequestBody Plato plato){
-        return servicios.addPlato(iddieta,plato);
+    public Plato addPlatoDieta(@RequestBody Plato plato){
+        return servicios.addPlato(plato);
     }
 }

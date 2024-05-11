@@ -33,9 +33,13 @@ public class Dieta {
     @Column(name = "idcoachee")
     private int idcoachee;
 
-    @OneToMany(mappedBy = "dietasConPlato", cascade = {CascadeType.REMOVE})
+    @OneToMany(mappedBy = "dietas", cascade = {CascadeType.REMOVE})
     private List<Plato> platoDeDieta;
 
-    @OneToMany(mappedBy = "alimento", cascade = {CascadeType.REMOVE})
+    @OneToMany(mappedBy = "alimentosperm", cascade = {CascadeType.REMOVE})
     private List<AlimentosPermitidos> alimentosPermitidos;
+
+    public Dieta(int id) {
+        this.id = id;
+    }
 }
