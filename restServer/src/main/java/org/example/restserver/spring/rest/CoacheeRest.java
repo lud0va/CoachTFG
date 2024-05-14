@@ -31,7 +31,7 @@ public class CoacheeRest {
         return serv.getCoachee(id);
     }
 
-    @PostMapping
+    @GetMapping("/insertCoacheeIntoCoach")
     public Boolean addCoacheeToCoach(@RequestParam(name = "idCoachee") int idCoachee, @RequestParam(name = "codeCoach") String code) {
         return  serv.addCoacheeToCoach(idCoachee, code);
 

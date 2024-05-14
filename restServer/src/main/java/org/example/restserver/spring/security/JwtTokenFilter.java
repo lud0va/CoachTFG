@@ -37,14 +37,12 @@ public class JwtTokenFilter extends OncePerRequestFilter {
                                     HttpServletResponse response,
                                     FilterChain chain) throws ServletException, IOException {
         try {
-            // Get authorization header and validate
             final String header = request.getHeader(HttpHeaders.AUTHORIZATION);
             if (isEmpty(header) || !header.startsWith(Constantes.BEARER)) {
                 chain.doFilter(request, response);
                 return;
             }
 
-            // Get jwt token and validate
             final String token = header.split(Constantes.SPACE)[1].trim();
 
             if (!jwtTokenUtil.validate(token)) {
@@ -52,7 +50,6 @@ public class JwtTokenFilter extends OncePerRequestFilter {
                 return;
             }
 
-            // Get user identity and set it on the spring security context
             UserDetails userDetails =
                     userRepo.createUser(jwtTokenUtil.getUsername(token), Constantes.EMPTY, jwtTokenUtil.getRole(token));
 

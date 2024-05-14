@@ -1,0 +1,28 @@
+GET http://localhost:8080/login?email=yo@gmail.com&password=luis
+
+> {%
+    client.global.set("token", response.body.access_token)
+%}
+###
+GET http://localhost:8080/registerCoach?email=pepevilluela@gmail.com&password=pepe&name=pepe&lastname=villuela
+###
+GET http://localhost:8080/registerCoachee?email=pacosanz@gmail.com&password=paco
+
+
+###Coachee
+GET http://localhost:8081/coachee/getAllByName?name=pepe
+###
+GET http://localhost:8081/coachee/getAllByCoach?idCoach=43
+###
+GET http://localhost:8081/coachee/get?id=3
+###
+GET http://localhost:8081/coachee/insertCoacheeIntoCoach?idCoachee=3&codeCoach=pUeoRtZpOtOwkndHylZuanvXiK_QRV0r3vR9suRAA5g=
+###Coach
+GET http://localhost:8081/coach/getAllByName?name=paco
+###
+GET http://localhost:8081/coach/getCaoach?id=43
+
+
+
+
+
