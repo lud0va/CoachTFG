@@ -20,6 +20,10 @@ public class EntrenamientosRest {
     public List<Entrenamiento> getEntrenamientosByCoach(@RequestParam(name = "id") int id){
         return serv.getEntrenamientosByCoachee(id);
     }
+    @GetMapping("/getByEmail")
+    public List<Entrenamiento> getEntrenamientosByCoachEmail(@RequestParam(name = "email") String email){
+        return serv.getEntrenamientosByCoacheeEmail(email);
+    }
 
     @PostMapping
     public Entrenamiento addEntrenamiento(@RequestBody Entrenamiento entrenamiento){

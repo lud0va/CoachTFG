@@ -20,6 +20,10 @@ public class EntrenamientosServices {
     public List<Entrenamiento> getEntrenamientosByCoachee(int id){
         return dao.findAllByCoachee(id);
     }
+    public List<Entrenamiento> getEntrenamientosByCoacheeEmail(String email){
+        return dao.findAllByCoacheeEmail(email);
+    }
+
     public Entrenamiento addEntrenamiento(Entrenamiento entrenamiento){
 
         return dao.save(entrenamiento);

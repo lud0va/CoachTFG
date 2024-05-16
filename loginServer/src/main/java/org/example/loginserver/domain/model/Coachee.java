@@ -23,5 +23,8 @@ public class Coachee {
     @Column(name = "idcoach")
     private int idcoach;
 
-
+    public Coachee(int idcoachee, String username) {
+        this.idcoachee = idcoachee;
+        this.username = username;
+    }
 }
