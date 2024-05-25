@@ -24,4 +24,12 @@ public class DietasRest {
         return serv.addDieta(dieta);
     }
 
+    @GetMapping("/byId")
+    private Dieta getDieta(@RequestParam(name = "id") int id){
+        return serv.getDieta(id);
+    }
+    @GetMapping("/byEmail")
+    public List<Dieta> getDietasDeCoacheByEmail(@RequestParam(name = "email") String email){
+        return serv.getDietasDeCoacheEmail(email);
+    }
 }

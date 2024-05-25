@@ -14,5 +14,9 @@ public interface DietaDao  extends ListCrudRepository<Dieta, Long> {
 
    @Query("SELECT c FROM Dieta c WHERE  c.idcoachee=:id ")
     List<Dieta> findAllByIdCoachee(int id);
+    @Query("SELECT d FROM Dieta d " +
+            "JOIN Users u ON d.idcoachee = u.id " +
+            "WHERE u.email = :email")
+    List<Dieta> findAllByIdCoacheeEmail(String email);
     List<Dieta>findAllByIdcoachee(int id);
 }

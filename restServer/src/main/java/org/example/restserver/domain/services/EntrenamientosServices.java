@@ -25,8 +25,20 @@ public class EntrenamientosServices {
     }
 
     public Entrenamiento addEntrenamiento(Entrenamiento entrenamiento){
-
+        if (dao.findByDiaSemana(entrenamiento.getDiaSemana()).isPresent()){
+            //tirar excepcion personalizada
+            throw new RuntimeException();
+        }
         return dao.save(entrenamiento);
+
     }
 
+    public Entrenamiento getEntrenamientoByDia(String dia){
+        return dao.findByDiaSemana(dia).orElseThrow(RuntimeException::new);//tirar excepcion
+    }
+
+    public Entrenamiento getEntrenamiento(int id){
+        //tirar una excepcion personalizada
+        return dao.findById((long)id).orElseThrow(RuntimeException::new);
+    }
 }

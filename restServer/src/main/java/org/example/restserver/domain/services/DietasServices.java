@@ -29,6 +29,13 @@ public class DietasServices {
         List<Dieta> d=dao.findAllByIdcoachee(id);
         return d;
     }
+    public  Dieta getDieta(int id ){
+        return dao.findById((long)id).orElseThrow();
+    }
+
+    public List<Dieta> getDietasDeCoacheEmail(String email){
+        return dao.findAllByIdCoacheeEmail(email);
+    }
      @Transactional
    public Dieta addDieta(Dieta dieta){
       Dieta dieta1=dao.save(dieta);

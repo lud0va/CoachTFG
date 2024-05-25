@@ -25,10 +25,18 @@ public class EntrenamientosRest {
         return serv.getEntrenamientosByCoacheeEmail(email);
     }
 
+    @GetMapping("/getByDay")
+    public Entrenamiento getEntrenamientoBydia(@RequestParam(name = "dia")String dia){
+        return serv.getEntrenamientoByDia(dia);
+    }
     @PostMapping
     public Entrenamiento addEntrenamiento(@RequestBody Entrenamiento entrenamiento){
        return serv.addEntrenamiento(entrenamiento);
 
+    }
+    @GetMapping("/byId")
+    public Entrenamiento getEntrenamiento(@RequestParam(name = "id") int id){
+        return serv.getEntrenamiento(id);
     }
 
 }
