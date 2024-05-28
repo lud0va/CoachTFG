@@ -15,8 +15,9 @@ public interface CoacheeDao   extends ListCrudRepository<Coachee, Long> {
     @Query("select c From Coachee c join Users u On c.idcoachee=u.id where  u.name LIKE CONCAT(:userName, '%')")
     List<Coachee> findAllByName(@Param("userName") String userName);
 
-
     Optional<Coachee> findByIdcoach(int id);
 
+    @Query("select c FROM  Coachee  c join Users  u on c.idcoachee=u.id where  u.email LIKE  CONCAT(:email,'%') ")
+    Optional<Coachee> findByCoachEmail(String email);
     List<Coachee> findAllByIdcoach(int id);
 }

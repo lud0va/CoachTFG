@@ -66,13 +66,14 @@ public class UserServices {
     public Users getUserByEmail(String email){
         return dao.findByEmail(email).orElseThrow(UserExistException::new);
     }
-    public boolean registerCoachee(String email, String passw, String username, String rol) {
+    public boolean registerCoachee(String email, String passw, String username, String rol,String code ) {
         if (!dao.findByEmail(email).isPresent()) {
             String str = co.createPasswordEncoder().encode(passw);
 
             dao.save(new Users(email, str,  rol));
             Users us = dao.findByEmail(email).get();
-            daoCoachee.save(new Coachee(us.getId(),username));
+            Coach c=daoCoach.findByCoachCode(code).get();
+            if(c!=null) daoCoachee.save(new Coachee(us.getId(),username,c.getId()));
 
 
 

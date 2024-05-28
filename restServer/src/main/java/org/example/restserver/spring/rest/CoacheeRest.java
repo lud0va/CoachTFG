@@ -20,6 +20,11 @@ public class CoacheeRest {
     public List<Coachee> getAllByName(@RequestParam(name = "name") String name) {
         return serv.getAllByName(name);
     }
+    @GetMapping("/getByEmail")
+    public Coachee getAllByEmail(@RequestParam(name = "email")String email){
+        return serv.getByEmail(email);
+
+    }
 
     @GetMapping("/getAllByCoach")
     public List<Coachee> getAllByCoach(@RequestParam(name = "idCoach") int id) {

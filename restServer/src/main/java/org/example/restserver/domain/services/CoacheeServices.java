@@ -21,6 +21,10 @@ public class CoacheeServices {
         return daoCoachee.findAllByName(name);
 
     }
+    public Coachee getByEmail(String email){
+        Coachee c=daoCoachee.findByCoachEmail(email).get();
+        return c;
+    }
 
     public List<Coachee> getAllByCoach(int id) {
         return daoCoachee.findAllByIdcoach(id);

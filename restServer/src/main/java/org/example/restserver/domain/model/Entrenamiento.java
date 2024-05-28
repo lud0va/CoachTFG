@@ -22,6 +22,9 @@ public class  Entrenamiento {
     private int id;
     @Column(name = "dia_semana", nullable = false)
     private String diaSemana;
+    @Column(name = "tipo", nullable = false)
+    private String tipo;
+
 
     @ManyToOne(cascade = {CascadeType.REMOVE})
     @JoinColumn(name = "idcoachee", nullable = false)
