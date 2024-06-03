@@ -50,7 +50,7 @@ public class UserServices {
 
             dao.save(new Users(email, str,  rol));
             Users us = dao.findByEmail(email).get();
-            String code=Utils.randomBytes();
+            String code=email;
             daoCoach.save(new Coach(us.getId(),name,lastname,code ));
 
 
@@ -66,14 +66,17 @@ public class UserServices {
     public Users getUserByEmail(String email){
         return dao.findByEmail(email).orElseThrow(UserExistException::new);
     }
-    public boolean registerCoachee(String email, String passw, String username, String rol,String code ) {
+    public boolean registerCoachee(String email, String passw, String username, String rol,String code, String sex,int age,int weigth) {
         if (!dao.findByEmail(email).isPresent()) {
             String str = co.createPasswordEncoder().encode(passw);
-
-            dao.save(new Users(email, str,  rol));
-            Users us = dao.findByEmail(email).get();
             Coach c=daoCoach.findByCoachCode(code).get();
-            if(c!=null) daoCoachee.save(new Coachee(us.getId(),username,c.getId()));
+            if(c!=null){
+                dao.save(new Users(email, str,  rol));
+                Users us = dao.findByEmail(email).get();
+
+                daoCoachee.save(new Coachee(us.getId(),username,c.getId(),"",age,sex,weigth));
+
+            }
 
 
 

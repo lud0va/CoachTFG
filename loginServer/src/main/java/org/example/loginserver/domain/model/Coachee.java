@@ -22,7 +22,14 @@ public class Coachee {
     private String username;
     @Column(name = "idcoach")
     private int idcoach;
-
+    @Column(name = "objetivos")
+    private String objetivos;
+    @Column(name = "edad")
+    private int edad;
+    @Column(name="sexo")
+    private String sexo;
+    @Column(name = "peso")
+    private int peso;
     public Coachee(int idcoachee, String username) {
         this.idcoachee = idcoachee;
         this.username = username;

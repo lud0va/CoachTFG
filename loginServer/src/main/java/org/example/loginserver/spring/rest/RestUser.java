@@ -40,8 +40,8 @@ public class RestUser {
         return serv.register(email, password,name,lastname,"coach");
     }
     @GetMapping(Constantes.REGISTERCOACHEE)
-    public Boolean registerCoachee(@RequestParam(name = Constantes.EMAIL) String email, @RequestParam(name = Constantes.PASSWORD) String password, @RequestParam(name="username")String userename,@RequestParam(name = "coachCode")String coachCode) {
-        return serv.registerCoachee(email, password,userename,"coachee",coachCode);
+    public Boolean registerCoachee(@RequestParam(name = Constantes.EMAIL) String email, @RequestParam(name = Constantes.PASSWORD) String password, @RequestParam(name="username")String userename,@RequestParam(name = "coachCode")String coachCode,@RequestParam(name = "sex") String  sex,@RequestParam(name = "age")int age,@RequestParam("weight") int weight) {
+        return serv.registerCoachee(email, password,userename,"coachee",coachCode,sex,age,weight);
     }
 
     @GetMapping(Constantes.GETACCESSTOKEN)

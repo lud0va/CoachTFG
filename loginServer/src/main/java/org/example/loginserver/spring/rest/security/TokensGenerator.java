@@ -46,16 +46,17 @@ public class TokensGenerator {
         try {
             // Cargar el keystore
             KeyStore keyStore = KeyStore.getInstance(Constantes.PKCS_12);
+            //cargar el keystore con la clave del servidore
             keyStore.load(new FileInputStream(keystorename), claveKeystore.toCharArray());
 
-            // Obtener la clave privada del servidor
+            // Obtener la clave privada del servidor con la clave
             KeyStore.PasswordProtection keyPassword = new KeyStore.PasswordProtection(claveKeystore.toCharArray());
             KeyStore.PrivateKeyEntry privateKeyEntry = (KeyStore.PrivateKeyEntry) keyStore.getEntry(serverName, keyPassword);
             PrivateKey privateKey = privateKeyEntry.getPrivateKey();
 
 
             // Construir el token JWT
-
+            //firmar el token con la clave
             return  Jwts.builder()
                     .setSubject(users.getEmail())
                     .claim(Constantes.ROLE, users.getRol())
