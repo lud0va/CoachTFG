@@ -44,13 +44,13 @@ public class UserServices {
         this.authenticationManager = authenticationManager;
     }
 
-    public boolean register(String email, String passw, String name, String lastname, String rol) {
+    public boolean register(String email, String passw, String name, String lastname, String rol,String code) {
         if (!dao.findByEmail(email).isPresent()) {
             String str = co.createPasswordEncoder().encode(passw);
 
             dao.save(new Users(email, str,  rol));
             Users us = dao.findByEmail(email).get();
-            String code=email;
+
             daoCoach.save(new Coach(us.getId(),name,lastname,code ));
 
 

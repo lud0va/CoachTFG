@@ -36,8 +36,8 @@ public class RestUser {
     }
 
     @GetMapping(Constantes.REGISTER)
-    public Boolean registerCoach(@RequestParam(name = Constantes.EMAIL) String email, @RequestParam(name = Constantes.PASSWORD) String password, @RequestParam(name = Constantes.NAME) String name, @RequestParam(name =Constantes.LASTNAME) String lastname) {
-        return serv.register(email, password,name,lastname,"coach");
+    public Boolean registerCoach(@RequestParam(name = Constantes.EMAIL) String email, @RequestParam(name = Constantes.PASSWORD) String password, @RequestParam(name = Constantes.NAME) String name, @RequestParam(name =Constantes.LASTNAME) String lastname,@RequestParam(name="code") String code) {
+        return serv.register(email, password,name,lastname,"coach",code);
     }
     @GetMapping(Constantes.REGISTERCOACHEE)
     public Boolean registerCoachee(@RequestParam(name = Constantes.EMAIL) String email, @RequestParam(name = Constantes.PASSWORD) String password, @RequestParam(name="username")String userename,@RequestParam(name = "coachCode")String coachCode,@RequestParam(name = "sex") String  sex,@RequestParam(name = "age")int age,@RequestParam("weight") int weight) {

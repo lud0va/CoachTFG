@@ -21,15 +21,21 @@ export class AddentrenamientoComponent implements OnInit  {
   entrenamientos?: Entrenamiento[];
   activated=true
   selectedEntrenamientoId?:number
-  daysOfWeek: string[] = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
-  selectedDay: string = 'Lunes';
+  daysOfWeek: string[] = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'];
+  selectDay:string='Lunes'
   ejercicio?:Ejercicio;
   form=this.formBuilder.group({
 
     nombre:['',[Validators.required]],
     dificultad:['',Validators.required],
     tipo:['',Validators.required],
-    descripcion:['',Validators.required]
+    descripcion:['',Validators.required],
+
+
+  })
+  formEntrenamiento=this.formBuilder.group({
+    tipoEntrenamiento:['',Validators.required],
+
   })
   constructor(private formBuilder:FormBuilder,private router:Router,private actroute: ActivatedRoute, private ejerciciosService:EjerciciosService , private entrenamientoService: EntrenamientosService, private coacheeServices: CoacheeService) {
   }
@@ -63,7 +69,8 @@ export class AddentrenamientoComponent implements OnInit  {
   addEntrenamiento(){
       var entrenamiento={
 
-        diaSemana:this.selectedDay,
+        diaSemana:this.selectDay,
+        tipo: this.formEntrenamiento.value.tipoEntrenamiento?.valueOf(),
         coachee:this.coachee
       }
       this.entrenamientoService.addEntrenamiento(entrenamiento).subscribe({
@@ -94,9 +101,7 @@ export class AddentrenamientoComponent implements OnInit  {
 
     })
   }
-  selectDay(day:string){
-    this.selectedDay=day
-  }
+
   onSelectEntrenamiento(entrenamiento:Entrenamiento){
     this.activated=false;
     this.selectedEntrenamientoId=entrenamiento.id;

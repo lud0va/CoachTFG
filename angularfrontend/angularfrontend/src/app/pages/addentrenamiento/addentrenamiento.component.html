@@ -1,4 +1,4 @@
-<p>addentrenamiento works!</p>
+
 <div class="row ">
   <div class="col">
     <h1 >Selecciona un entrenamiento y añade ejercicios</h1>
@@ -20,15 +20,21 @@
 
     <div class="mt-5" >
 
+      <mat-form-field appearance="fill">
+        <mat-select [(value)]="selectDay">
+          <mat-option *ngFor="let day of daysOfWeek" [value]="day">
+            {{day}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
 
-      <select  class="form-control">
-        <option *ngFor="let day of daysOfWeek"
-                (click)="selectDay(day)"
-                [value]="day">{{ day }}
+      <form [formGroup]="formEntrenamiento"  >
 
-        </option>
-      </select>
+        <label for="tipoEntrenamiento">Tipo entrenamiento</label>
+        <input   formControlName="tipoEntrenamiento" class="form-control elmEntrenamiento"  [disabled]="activated" id="tipoEntrenamiento" name="tipoEntrenamiento" placeholder="Ingresa el tipo de entrenamiento ej(pierna)" required>
 
+
+      </form>
       <button   type="submit"  (click)="addEntrenamiento()" class="btn btn-primary btn-block ms-5 mt-5">Añadir entrenamiento</button>
 
 
@@ -45,7 +51,7 @@
 
           (click)="onSelectEntrenamiento(entrenamiento)"
       >
-        <p>dia: {{ entrenamiento.diaSemana }}</p>
+        <p>dia: {{ entrenamiento.diaSemana }}  entrenamiento de: {{ entrenamiento.tipo }}</p>
 
         <ul *ngIf="selectedEntrenamientoId===entrenamiento.id">
           <li *ngFor="let ejercicio of entrenamiento.ejercicios">

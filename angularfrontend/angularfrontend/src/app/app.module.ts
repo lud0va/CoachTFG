@@ -15,6 +15,9 @@ import { CoacheeslistComponent } from './pages/coacheeslist/coacheeslist.compone
 import { CoacheedetailComponent } from './pages/coacheedetail/coacheedetail.component';
 import { AddentrenamientoComponent } from './pages/addentrenamiento/addentrenamiento.component';
 import { AdddietasComponent } from './pages/adddietas/adddietas.component';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import {MatFormField} from "@angular/material/form-field";
+import {MatOption, MatSelect} from "@angular/material/select";
 
 @NgModule({
   declarations: [
@@ -35,10 +38,14 @@ import { AdddietasComponent } from './pages/adddietas/adddietas.component';
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    MatFormField,
+    MatSelect,
+    MatOption
   ],
   providers: [
-    provideClientHydration()
+    provideClientHydration(),
+    provideAnimationsAsync()
   ],
   bootstrap: [AppComponent]
 })
