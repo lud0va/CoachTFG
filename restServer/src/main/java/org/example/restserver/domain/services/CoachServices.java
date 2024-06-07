@@ -4,7 +4,9 @@ import org.example.restserver.dao.CoachDao;
 import org.example.restserver.domain.model.Coach;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CoachServices {
@@ -21,16 +23,18 @@ public class CoachServices {
         return daoCoach.findAll();
     }
     public Coach getCoach(int id){
-        return daoCoach.findById(Long.valueOf(id)).orElseThrow(
-
-                //tirar excepcion
-        );
+        Optional<Coach> coach=daoCoach.findById(Long.valueOf(id));
+        if(coach.isPresent()){
+            return coach.get();
+        }
+        return null;
     }
 
     public Coach findCoachByCode(String code){
-        return daoCoach.findByCoachCode(code).orElseThrow(
-                //tirar excepcion
-
-        );
+        Optional<Coach> coach= daoCoach.findByCoachCode(code);
+        if(coach.isPresent()){
+            return coach.get();
+        }
+         return null;
     }
 }

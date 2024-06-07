@@ -6,6 +6,7 @@ import org.example.restserver.domain.model.Coachee;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CoacheeServices {
@@ -32,9 +33,12 @@ public class CoacheeServices {
     }
 
     public Coachee getCoachee(int id) {
-        return daoCoachee.findById(Long.valueOf(id)).orElseThrow(
-                //tirar excepcion
-        );
+        Optional<Coachee> coachee=daoCoachee.findById(Long.valueOf(id));
+
+        if(coachee.isPresent()){
+            return coachee.get();
+        }
+        return null;
 
     }
 

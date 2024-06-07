@@ -2,19 +2,19 @@ package org.example.restserver.domain.services;
 
 import org.example.restserver.dao.CoacheeDao;
 import org.example.restserver.dao.EntrenamientoDao;
+import org.example.restserver.domain.errors.DiaRepetidoException;
 import org.example.restserver.domain.model.Entrenamiento;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EntrenamientosServices {
 
     private final EntrenamientoDao dao;
-    private final CoacheeDao cdao;
-    public EntrenamientosServices(EntrenamientoDao dao, CoacheeDao cdao) {
+    public EntrenamientosServices(EntrenamientoDao dao) {
         this.dao = dao;
-        this.cdao = cdao;
     }
 
     public List<Entrenamiento> getEntrenamientosByCoachee(int id){
@@ -26,19 +26,26 @@ public class EntrenamientosServices {
 
     public Entrenamiento addEntrenamiento(Entrenamiento entrenamiento){
         if (dao.findByDiaSemana(entrenamiento.getDiaSemana()).isPresent()){
-            //tirar excepcion personalizada
-            throw new RuntimeException();
+            throw new DiaRepetidoException();
         }
         return dao.save(entrenamiento);
 
     }
 
     public Entrenamiento getEntrenamientoByDia(String dia){
-        return dao.findByDiaSemana(dia).orElseThrow(RuntimeException::new);//tirar excepcion
+        Optional<Entrenamiento> entrenamiento= dao.findByDiaSemana(dia);
+        if(entrenamiento.isPresent()){
+            return entrenamiento.get();
+        }
+        return  null;//tirar excepcion
     }
 
     public Entrenamiento getEntrenamiento(int id){
         //tirar una excepcion personalizada
-        return dao.findById((long)id).orElseThrow(RuntimeException::new);
+        Optional<Entrenamiento> entrenamiento=  dao.findById(Long.valueOf(id));
+        if(entrenamiento.isPresent()) {
+            return entrenamiento.get();
+        }
+        return null;
     }
 }
